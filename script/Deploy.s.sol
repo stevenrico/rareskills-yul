@@ -2,7 +2,7 @@
 pragma solidity ^0.8.19;
 
 import { Script } from "forge-std/Script.sol";
-import { Counter } from "../src/Counter.sol";
+import { DataTypes } from "../src/DataTypes.sol";
 
 contract DeployScript is Script {
   address private _deployer;
@@ -18,6 +18,6 @@ contract DeployScript is Script {
   }
 
   function run() external broadcaster {
-    new Counter();
+    new DataTypes();
   }
 }
