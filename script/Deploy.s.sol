@@ -4,6 +4,7 @@ pragma solidity ^0.8.19;
 import { Script } from "forge-std/Script.sol";
 import { DataTypes } from "../src/DataTypes.sol";
 import { ControlFlow } from "../src/ControlFlow.sol";
+import { Storage } from "../src/Storage.sol";
 
 contract DeployScript is Script {
   address private _deployer;
@@ -21,5 +22,6 @@ contract DeployScript is Script {
   function run() external broadcaster {
     new DataTypes();
     new ControlFlow();
+    new Storage();
   }
 }
