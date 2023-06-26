@@ -5,6 +5,7 @@ import { Script } from "forge-std/Script.sol";
 import { DataTypes } from "../src/DataTypes.sol";
 import { ControlFlow } from "../src/ControlFlow.sol";
 import { Storage } from "../src/Storage.sol";
+import { DataStructures } from "../src/DataStructures.sol";
 
 contract DeployScript is Script {
   address private _deployer;
@@ -23,5 +24,6 @@ contract DeployScript is Script {
     new DataTypes();
     new ControlFlow();
     new Storage();
+    new DataStructures();
   }
 }
