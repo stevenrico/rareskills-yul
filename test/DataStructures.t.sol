@@ -55,4 +55,24 @@ contract DataStructuresTest is Test {
     _itReturnsDataAndLocation(_dataStructures.readPackedArray, 4, 50, location);
     _itReturnsDataAndLocation(_dataStructures.readPackedArray, 9, 100, location);
   }
+
+  function testReadMapping() external {
+    assertEq(_dataStructures.readMapping(5), 50);
+    assertEq(_dataStructures.readMapping(10), 100);
+  }
+
+  function testReadNestedMapping() external {
+    assertEq(_dataStructures.readNestedMapping(3, 5), 15);
+    assertEq(_dataStructures.readNestedMapping(5, 10), 50);
+  }
+
+  function testReadAddressAndArrayMapping() external {
+    assertEq(
+      _dataStructures.readArrayInAddressMappingLocation(address(0xaa)),
+      0x3e87fed9cda08916963d72e57b2df7d16ecabb7fb7fd2260730e0e3fdf688f9a
+    );
+    assertEq(_dataStructures.readArrayInAddressMapping(address(0xaa), 0), 5);
+    assertEq(_dataStructures.readArrayInAddressMapping(address(0xaa), 1), 10);
+    assertEq(_dataStructures.readArrayInAddressMapping(address(0xaa), 2), 50);
+  }
 }

@@ -6,10 +6,22 @@ contract DataStructures {
   uint256[] private _dynamicArray;
   uint8[] private _packedArray;
 
+  mapping(uint256 => uint256) private _mappping;
+  mapping(uint256 => mapping(uint256 => uint256)) private _nestedMappping;
+  mapping(address => uint256[]) private _addressToArray;
+
   constructor() {
     _fixedArray = [5, 50, 500];
     _dynamicArray = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
     _packedArray = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+
+    _mappping[5] = 50;
+    _mappping[10] = 100;
+
+    _nestedMappping[3][5] = 15;
+    _nestedMappping[5][10] = 50;
+
+    _addressToArray[address(0xaa)] = [5, 10, 50];
   }
 
   function readFixedArray(uint256 index) external view returns (uint256 data) {
@@ -96,6 +108,74 @@ contract DataStructures {
       let withShift := shr(mul(index, 8), value)
 
       data := and(0xff, withShift)
+    }
+  }
+
+  function readMapping(uint256 key) external view returns (uint256 data) {
+    uint256 slot;
+
+    assembly {
+      slot := _mappping.slot
+    }
+
+    bytes32 location = keccak256(abi.encode(key, uint256(slot)));
+
+    assembly {
+      data := sload(location)
+    }
+  }
+
+  function readNestedMapping(uint256 levelOne, uint256 levelTwo)
+    external
+    view
+    returns (uint256 data)
+  {
+    uint256 slot;
+
+    assembly {
+      slot := _nestedMappping.slot
+    }
+
+    bytes32 levelOneLocation = keccak256(abi.encode(levelOne, uint256(slot)));
+
+    bytes32 levelTwoLocation = keccak256(abi.encode(levelTwo, levelOneLocation));
+
+    assembly {
+      data := sload(levelTwoLocation)
+    }
+  }
+
+  function readArrayInAddressMappingLocation(address user)
+    external
+    pure
+    returns (bytes32 location)
+  {
+    uint256 slot;
+
+    assembly {
+      slot := _addressToArray.slot
+    }
+
+    location = keccak256(abi.encode(user, uint256(slot)));
+  }
+
+  function readArrayInAddressMapping(address user, uint256 index)
+    external
+    view
+    returns (uint256 data)
+  {
+    uint256 slot;
+
+    assembly {
+      slot := _addressToArray.slot
+    }
+
+    bytes32 arrayLocation = keccak256(abi.encode(user, uint256(slot)));
+
+    bytes32 valueLocation = keccak256(abi.encode(arrayLocation));
+
+    assembly {
+      data := sload(add(valueLocation, index))
     }
   }
 }
