@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.19;
 
+/* solhint-disable no-unused-vars */
 contract Memory {
   /**
    * [SLOT]              [BYTES]   [DESCRIPTION]

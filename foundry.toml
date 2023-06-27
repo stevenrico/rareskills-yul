@@ -6,6 +6,7 @@ solc = "0.8.19"
 optimizer = true
 optimizer_runs = 10_000
 verbosity = 3
+ignored_error_codes = ["unused-var", "unused-param"]
 
 [rpc_endpoints]
 localhost = "http://localhost:8545"
