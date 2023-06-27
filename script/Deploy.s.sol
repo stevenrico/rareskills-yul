@@ -7,6 +7,7 @@ import { ControlFlow } from "../src/ControlFlow.sol";
 import { Storage } from "../src/Storage.sol";
 import { DataStructures } from "../src/DataStructures.sol";
 import { Memory } from "../src/Memory.sol";
+import { Logs } from "../src/Logs.sol";
 
 contract DeployScript is Script {
   uint256 private _deployer;
@@ -27,5 +28,6 @@ contract DeployScript is Script {
     new Storage();
     new DataStructures();
     new Memory();
+    new Logs();
   }
 }
