@@ -6,12 +6,13 @@ import { DataTypes } from "../src/DataTypes.sol";
 import { ControlFlow } from "../src/ControlFlow.sol";
 import { Storage } from "../src/Storage.sol";
 import { DataStructures } from "../src/DataStructures.sol";
+import { Memory } from "../src/Memory.sol";
 
 contract DeployScript is Script {
-  address private _deployer;
+  uint256 private _deployer;
 
   constructor() {
-    _deployer = vm.envAddress("DEPLOYER_PRIVATE_KEY");
+    _deployer = vm.envUint("DEPLOYER_PRIVATE_KEY");
   }
 
   modifier broadcaster() {
@@ -25,5 +26,6 @@ contract DeployScript is Script {
     new ControlFlow();
     new Storage();
     new DataStructures();
+    new Memory();
   }
 }
